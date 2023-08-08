@@ -6,12 +6,7 @@ This extension allows users to load styles from a CSV file, primarily for migrat
 ## Installation
 Clone this repository into the `custom_nodes` folder of ComfyUI. Restart ComfyUI and the extension should be loaded.
 
-**Important**: The `styles.csv` file must be located in the root of `ComfyUI` where `main.py` resides. You can also symlink it if necessary. 
-
-Example of symlinking:
-```bash
-ln -s /path/to/your/styles.csv /path/to/ComfyUI/styles.csv
-```
+**Important**: The `styles.csv` file must be located in the root of `ComfyUI` where `main.py` resides.
 ## Nodes Description
 Each style is represented as a dictionary with the keys being `style_name` and the values being a list containing `positive_prompt` and `negative_prompt`. The prompts are outputs of this Node.
 
