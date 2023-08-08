@@ -8,7 +8,7 @@ class StylesCSVLoader:
     """
     
     @staticmethod
-    def load_styles_csv(styles_path):
+    def load_styles_csv(styles_path: str):
         """Loads csv file with styles. It has only one column.
         Ignore the first row (header).
         positive_prompt are strings separated by comma. Each string is a prompt.
@@ -35,11 +35,11 @@ class StylesCSVLoader:
         return styles
         
     @classmethod
-    def INPUT_TYPES(s):
-        s.styles_csv = s.load_styles_csv(os.path.join(folder_paths.base_path, "styles.csv"))
+    def INPUT_TYPES(cls):
+        cls.styles_csv = cls.load_styles_csv(os.path.join(folder_paths.base_path, "styles.csv"))
         return {
             "required": {
-                "styles": (list(s.styles_csv.keys()),),
+                "styles": (list(cls.styles_csv.keys()),),
             },
                                 
         }

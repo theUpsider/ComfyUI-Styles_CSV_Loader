@@ -5,7 +5,7 @@ This extension allows users to load styles from a CSV file (styles.csv), primari
 
 ## Installation
 - Clone this repository into the `custom_nodes` folder of ComfyUI. Restart ComfyUI and the extension should be loaded.
-- OR: Use the (ComfyUI-Manager)[https://github.com/ltdrdata/ComfyUI-Manager] to install this extension.
+- OR: Use the [ComfyUI-Manager](https://github.com/ltdrdata/ComfyUI-Manager) to install this extension.
 
 **Important**: The `styles.csv` file must be located in the root of `ComfyUI` where `main.py` resides.
 ## Nodes Description
