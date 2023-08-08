@@ -1,10 +1,11 @@
 # Styles CSV Loader Extension for ComfyUI
 Extension for [ComfyUI](https://github.com/comfyanonymous/ComfyUI) that loads styles from a CSV file.
 ## Description
-This extension allows users to load styles from a CSV file, primarily for migration purposes from the [automatic1111 Stable Diffusion web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui). 
+This extension allows users to load styles from a CSV file (styles.csv), primarily for migration purposes from the [automatic1111 Stable Diffusion web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui). 
 
 ## Installation
-Clone this repository into the `custom_nodes` folder of ComfyUI. Restart ComfyUI and the extension should be loaded.
+- Clone this repository into the `custom_nodes` folder of ComfyUI. Restart ComfyUI and the extension should be loaded.
+- OR: Use the (ComfyUI-Manager)[https://github.com/ltdrdata/ComfyUI-Manager] to install this extension.
 
 **Important**: The `styles.csv` file must be located in the root of `ComfyUI` where `main.py` resides.
 ## Nodes Description
