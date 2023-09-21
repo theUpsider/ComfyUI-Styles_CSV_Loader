@@ -39,7 +39,7 @@ class StylesCSVLoader:
         cls.styles_csv = cls.load_styles_csv(os.path.join(folder_paths.base_path, "styles.csv"))
         return {
             "required": {
-                "styles": (list(cls.styles_csv.keys()),),
+                "styles": (list(style[0] for style in cls.styles_csv),),
             },
                                 
         }
