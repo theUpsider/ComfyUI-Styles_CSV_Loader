@@ -1,1 +1,1 @@
-from .styles_csv_loader import *
+from .multi_style_csv_loader import *
