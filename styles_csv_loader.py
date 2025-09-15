@@ -38,6 +38,8 @@ class StylesCSVLoader:
                     Your current root directory is: {normalized_base_path}
                     Error: {e}
             """)
+            # Return the error dictionary instead of the intermediate styles list
+            styles = {"Error loading styles.csv, check the console": ["", ""]}
         return styles
 
     @classmethod
