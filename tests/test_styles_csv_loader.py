@@ -45,19 +45,26 @@ class TestStylesCSVLoader(unittest.TestCase):
         self.assertEqual(cinematic_style[1], 'low quality, blurry, amateur')
     
     def test_load_invalid_csv(self):
-        """Test loading an invalid CSV file (missing columns)."""
+        """Test loading an invalid CSV file (missing columns). Should return an error dictionary."""
         styles = StylesCSVLoader.load_styles_csv(self.invalid_csv_path)
         
-        # NOTE: Due to the current implementation, when an exception occurs during
-        # the dictionary comprehension (line 31), the styles variable is left as
-        # the parsed list from line 29-30, not the error dictionary.
-        # This is actually a bug in the original code, but we test the current behavior.
-        self.assertIsInstance(styles, list)
-        
-        # Verify it contains the parsed CSV rows
-        self.assertGreater(len(styles), 0)
-        self.assertIn('Missing Column', styles[0])
-    
+        # The correct behavior: should return a dict with an error message
+        self.assertIsInstance(styles, dict)
+        error_key = list(styles.keys())[0]
+        self.assertIn('Error loading styles.csv', error_key)
+        self.assertIsInstance(styles[error_key], str)
+
+    def test_load_invalid_csv_buggy_behavior(self):
+        """[BUG DOCUMENTATION] Current buggy behavior: returns a list instead of error dict for invalid CSV.
+        Remove this test once the bug in styles_csv_loader.py is fixed."""
+        styles = StylesCSVLoader.load_styles_csv(self.invalid_csv_path)
+        # This documents the buggy behavior for regression tracking.
+        if isinstance(styles, list):
+            self.assertGreater(len(styles), 0)
+            self.assertIn('Missing Column', styles[0])
+        else:
+            # If bug is fixed, this test should be removed.
+            self.skipTest("Bug fixed: loader returns error dict instead of list.")
     def test_load_nonexistent_csv(self):
         """Test loading a nonexistent CSV file."""
         styles = StylesCSVLoader.load_styles_csv(self.nonexistent_csv_path)
