@@ -1,0 +1,6 @@
+name,prompt,negative_prompt
+"Cinematic","cinematic shot, dramatic lighting, film grain","low quality, blurry, amateur"
+"Portrait","portrait photography, professional lighting, sharp focus","ugly, deformed, extra limbs"
+"Landscape","landscape photography, golden hour, wide angle","people, buildings, urban"
+"Anime Style","anime art style, vibrant colors, detailed","realistic, photographic, western art"
+"Oil Painting","oil painting style, textured brushstrokes, classical","digital art, photograph, modern"

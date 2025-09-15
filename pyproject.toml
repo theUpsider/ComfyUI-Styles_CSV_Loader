@@ -1,14 +1,51 @@
 [project]
 name = "comfyui-styles_csv_loader"
 description = "This extension allows users to load styles from a CSV file, primarily for migration purposes from the automatic1111 Stable Diffusion web UI."
-version = "1.0.1"
+version = "1.1.0"
 license = { text = "MIT License" }
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0"
+]
 
 [project.urls]
 Repository = "https://github.com/theUpsider/ComfyUI-Styles_CSV_Loader"
 #  Used by Comfy Registry https://comfyregistry.org
 
+[tool.setuptools]
+py-modules = ["styles_csv_loader"]
+
 [tool.comfy]
 PublisherId = "theupsider"
 DisplayName = "ComfyUI-Styles_CSV_Loader"
 Icon = ""
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+    "--disable-warnings"
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "tests/*",
+    "*/test_*",
+    "*/__pycache__/*"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError"
+]

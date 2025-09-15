@@ -1,0 +1,5 @@
+name,prompt,negative_prompt
+"Complex Quotes","painting with ""double quotes"" and, commas","bad quality, ""ugly"" result"
+"Special Characters","ñáéíóú àèìòù çñ","low quality"
+"Empty Negative","beautiful artwork, masterpiece",""
+"Multi-line Style","very long prompt that contains many details, high quality, award winning, masterpiece, detailed textures","low quality, blurry, amateur, bad composition, poor lighting"
