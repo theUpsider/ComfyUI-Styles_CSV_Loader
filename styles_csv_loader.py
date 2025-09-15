@@ -20,8 +20,10 @@ class StylesCSVLoader:
         """
         styles = {"Error loading styles.csv, check the console": ["", ""]}
         if not os.path.exists(styles_path):
+            # Normalize path for cross-platform display
+            normalized_base_path = os.path.normpath(folder_paths.base_path)
             print(f"""Error. No styles.csv found. Put your styles.csv in the root directory of ComfyUI. Then press "Refresh".
-                  Your current root directory is: {folder_paths.base_path}
+                  Your current root directory is: {normalized_base_path}
             """)
             return styles
         try:
@@ -30,16 +32,19 @@ class StylesCSVLoader:
                     ',(?=(?:[^"]*"[^"]*")*[^"]*$)', line)] for line in f.readlines()[1:]]
                 styles = {x[0]: [x[1], x[2]] for x in styles}
         except Exception as e:
+            # Normalize path for cross-platform display
+            normalized_base_path = os.path.normpath(folder_paths.base_path)
             print(f"""Error loading styles.csv. Make sure it is in the root directory of ComfyUI. Then press "Refresh".
-                    Your current root directory is: {folder_paths.base_path}
+                    Your current root directory is: {normalized_base_path}
                     Error: {e}
             """)
         return styles
 
     @classmethod
     def INPUT_TYPES(cls):
-        cls.styles_csv = cls.load_styles_csv(
-            os.path.join(folder_paths.base_path, "styles.csv"))
+        # Use os.path.normpath to ensure cross-platform compatibility
+        styles_path = os.path.normpath(os.path.join(folder_paths.base_path, "styles.csv"))
+        cls.styles_csv = cls.load_styles_csv(styles_path)
         return {
             "required": {
                 "styles": (list(cls.styles_csv.keys()),),
