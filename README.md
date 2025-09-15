@@ -1,3 +1,5 @@
+[![Publish to Comfy registry](https://github.com/theUpsider/ComfyUI-Styles_CSV_Loader/actions/workflows/publish.yml/badge.svg)](https://github.com/theUpsider/ComfyUI-Styles_CSV_Loader/actions/workflows/publish.yml)
+[![Tests](https://github.com/theUpsider/ComfyUI-Styles_CSV_Loader/actions/workflows/test.yml/badge.svg)](https://github.com/theUpsider/ComfyUI-Styles_CSV_Loader/actions/workflows/test.yml)
 # Styles CSV Loader Extension for ComfyUI
 Extension for [ComfyUI](https://github.com/comfyanonymous/ComfyUI) that loads styles from a CSV file.
 
