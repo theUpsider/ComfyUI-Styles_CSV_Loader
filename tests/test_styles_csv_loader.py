@@ -152,6 +152,82 @@ class TestStylesCSVLoader(unittest.TestCase):
         
         self.assertEqual(positive, 'positive prompt here')
         self.assertEqual(negative, 'negative prompt here')
+    
+    def test_execute_method_with_custom_csv_path(self):
+        """Test the execute method with custom CSV file path."""
+        loader = StylesCSVLoader()
+        
+        # Mock the default styles_csv attribute
+        loader.styles_csv = {
+            'Default Style': ['default positive', 'default negative']
+        }
+        
+        # Test with custom CSV path
+        positive, negative = loader.execute('Cinematic', self.valid_csv_path)
+        
+        self.assertEqual(positive, 'cinematic shot, dramatic lighting, film grain')
+        self.assertEqual(negative, 'low quality, blurry, amateur')
+    
+    def test_execute_method_with_custom_csv_fallback(self):
+        """Test that execute method falls back to default when style not found in custom CSV."""
+        loader = StylesCSVLoader()
+        
+        # Mock the default styles_csv attribute
+        loader.styles_csv = {
+            'Default Style': ['default positive', 'default negative']
+        }
+        
+        # Test with custom CSV path but style that doesn't exist in custom file
+        positive, negative = loader.execute('Default Style', self.valid_csv_path)
+        
+        self.assertEqual(positive, 'default positive')
+        self.assertEqual(negative, 'default negative')
+    
+    def test_execute_method_with_absolute_path(self):
+        """Test execute method with absolute path to custom CSV."""
+        loader = StylesCSVLoader()
+        
+        # Mock the default styles_csv attribute
+        loader.styles_csv = {
+            'Default Style': ['default positive', 'default negative']
+        }
+        
+        # Test with absolute path
+        absolute_path = os.path.abspath(self.valid_csv_path)
+        positive, negative = loader.execute('Cinematic', absolute_path)
+        
+        self.assertEqual(positive, 'cinematic shot, dramatic lighting, film grain')
+        self.assertEqual(negative, 'low quality, blurry, amateur')
+    
+    @patch('styles_csv_loader.folder_paths')
+    def test_input_types_includes_csv_file_path(self, mock_folder_paths):
+        """Test that INPUT_TYPES includes the csv_file_path optional parameter."""
+        mock_folder_paths.base_path = self.fixtures_dir
+        
+        # Create a temporary styles.csv in the fixtures directory
+        temp_csv_path = os.path.join(self.fixtures_dir, 'styles.csv')
+        with open(temp_csv_path, 'w', encoding='utf-8') as f:
+            f.write('name,prompt,negative_prompt\n')
+            f.write('"Test Style","test prompt","test negative"\n')
+        
+        try:
+            input_types = StylesCSVLoader.INPUT_TYPES()
+            
+            # Check structure includes optional csv_file_path
+            self.assertIn('required', input_types)
+            self.assertIn('optional', input_types)
+            self.assertIn('csv_file_path', input_types['optional'])
+            
+            # Check csv_file_path is a STRING type with default
+            csv_param = input_types['optional']['csv_file_path']
+            self.assertEqual(csv_param[0], 'STRING')
+            self.assertIn('default', csv_param[1])
+            self.assertEqual(csv_param[1]['default'], 'styles.csv')
+        
+        finally:
+            # Clean up
+            if os.path.exists(temp_csv_path):
+                os.remove(temp_csv_path)
 
 
 if __name__ == '__main__':
