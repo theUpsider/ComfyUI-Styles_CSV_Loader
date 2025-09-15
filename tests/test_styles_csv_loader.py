@@ -52,7 +52,9 @@ class TestStylesCSVLoader(unittest.TestCase):
         self.assertIsInstance(styles, dict)
         error_key = list(styles.keys())[0]
         self.assertIn('Error loading styles.csv', error_key)
-        self.assertIsInstance(styles[error_key], str)
+        # Style values should always be lists with positive and negative prompts
+        self.assertIsInstance(styles[error_key], list)
+        self.assertEqual(len(styles[error_key]), 2)
 
     def test_load_invalid_csv_buggy_behavior(self):
         """[BUG DOCUMENTATION] Current buggy behavior: returns a list instead of error dict for invalid CSV.
