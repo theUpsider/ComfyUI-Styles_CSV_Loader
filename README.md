@@ -15,12 +15,38 @@ This extension allows users to load styles from a CSV file (styles.csv), primari
 ## Nodes Description
 Each style is represented as a dictionary with the keys being `style_name` and the values being a list containing `positive_prompt` and `negative_prompt`. The prompts are outputs of this Node.
 
+### Custom CSV Files
+The extension now supports loading styles from custom CSV files in addition to the default `styles.csv`. You can specify a custom CSV file path using the optional `csv_file_path` parameter:
+
+- **Relative paths**: Relative to the ComfyUI root directory (e.g., `"my_styles/portrait_styles.csv"`)
+- **Absolute paths**: Full file system paths (e.g., `"/path/to/my/custom_styles.csv"`)
+- **Default behavior**: When no custom path is specified, it uses `styles.csv` from the ComfyUI root directory
+
+If a selected style is not found in the custom CSV file, the node will fall back to the default styles loaded from `styles.csv`.
+
 ## CSV Format
 The CSV file should have the following format:
 ```csv
 name,prompt,negative_prompt
 "Style Name","positive prompt text","negative prompt text"
 "Another Style","more positive text","more negative text"
+```
+
+### Examples
+You can organize your styles in multiple CSV files for different purposes:
+
+**portraits.csv**:
+```csv
+name,prompt,negative_prompt
+"Professional Portrait","portrait photography, professional lighting, sharp focus","ugly, deformed, extra limbs"
+"Vintage Portrait","vintage portrait, sepia tone, classical","modern, digital, colorful"
+```
+
+**landscapes.csv**:
+```csv
+name,prompt,negative_prompt
+"Golden Hour","landscape photography, golden hour, wide angle","people, buildings, urban"
+"Mountain Vista","mountain landscape, dramatic clouds, epic view","flat, boring, low quality"
 ```
 
 ## Development

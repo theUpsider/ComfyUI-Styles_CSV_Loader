@@ -45,13 +45,15 @@ class StylesCSVLoader:
     @classmethod
     def INPUT_TYPES(cls):
         # Use os.path.normpath to ensure cross-platform compatibility
-        styles_path = os.path.normpath(os.path.join(folder_paths.base_path, "styles.csv"))
-        cls.styles_csv = cls.load_styles_csv(styles_path)
+        default_styles_path = os.path.normpath(os.path.join(folder_paths.base_path, "styles.csv"))
+        cls.styles_csv = cls.load_styles_csv(default_styles_path)
         return {
             "required": {
                 "styles": (list(cls.styles_csv.keys()),),
             },
-
+            "optional": {
+                "csv_file_path": ("STRING", {"default": "styles.csv", "multiline": False}),
+            }
         }
 
     RETURN_TYPES = ("STRING", "STRING")
@@ -59,7 +61,25 @@ class StylesCSVLoader:
     FUNCTION = "execute"
     CATEGORY = "loaders"
 
-    def execute(self, styles):
+    def execute(self, styles, csv_file_path="styles.csv"):
+        # Handle custom CSV file path
+        if csv_file_path != "styles.csv":
+            # Check if path is absolute or relative
+            if os.path.isabs(csv_file_path):
+                custom_styles_path = os.path.normpath(csv_file_path)
+            else:
+                # Relative path from ComfyUI root directory
+                custom_styles_path = os.path.normpath(os.path.join(folder_paths.base_path, csv_file_path))
+            
+            # Load styles from custom path
+            custom_styles = self.load_styles_csv(custom_styles_path)
+            if styles in custom_styles:
+                return (custom_styles[styles][0], custom_styles[styles][1])
+            else:
+                # Fall back to default styles if style not found in custom file
+                pass
+        
+        # Use default styles
         return (self.styles_csv[styles][0], self.styles_csv[styles][1])
 
 
