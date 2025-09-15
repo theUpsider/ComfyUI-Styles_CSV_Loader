@@ -118,7 +118,7 @@ Always reference these instructions first and fallback to search or bash command
 ```
 
 ### Key Code Patterns
-- CSV parsing regex: `,(?=(?:[^"]*"[^"]*")*[^"]*$)` - handles quoted fields with commas
+- CSV parsing regex: `,(?=(?:[^"]*"[^"]*")*[^"]*$)` - handles quoted fields with commas (matches literal double quotes)
 - Error handling: Always return default error style on exceptions
 - ComfyUI integration: Uses `folder_paths.base_path` for CSV location
 - Node registration: `NODE_CLASS_MAPPINGS` and `NODE_DISPLAY_NAME_MAPPINGS`
